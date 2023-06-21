@@ -2,19 +2,29 @@ import random
 
 chars = "ABCDEFGHIJKLMNOPQRSTUVWZYXabcdefghijklmnopqrstuvwxyz1234567890"
 
-len = int(input("Enter the length of new password: "))
-password = ""
-
-def findLen(str):
+def find_len(str):
     counter = 0   
-    for i in str:
+    for _ in str:
         counter += 1
     return counter
 
-for i in range(0, len):
-    rand = random.randint(0, findLen(chars)-1)
-    password += chars[rand]
+def create_password(length: str, contains_dashes: bool):
+    password = ""
+    for i in range(0, len):
+        rand = random.randint(0, find_len(chars)-1)
+        password += chars[rand]
 
-print("Your new password is: " + password)
+        if (contains_dashes == True and i % 2 == 1 and i != len - 1):
+            password += '-'
 
-input("Press 'Enter' to close")
+    return password
+
+
+if __name__ == '__main__':
+    len = int(input("Enter the number of letters and numbers of new password: "))
+    contains_dashes = bool(input("Should contain dash every 2 symbols? (True/false): "))
+
+    password = create_password(len, contains_dashes)
+
+    print("Your new password is: " + password)
+    input("Press 'Enter' to close")
